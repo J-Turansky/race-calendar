@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>2026 Race Calendar</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px}
+h1{text-align:center;font-size:2rem;margin-bottom:6px;color:#fff;letter-spacing:-0.5px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:20px;font-size:0.95rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1500px;margin:0 auto}
+@media(max-width:1200px){.calendar-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.calendar-grid{grid-template-columns:repeat(2,1fr)}}
+.month{background:#1e293b;border-radius:14px;padding:14px;border:1px solid #334155}
+.month-name{text-align:center;font-weight:700;font-size:1.05rem;margin-bottom:8px;color:#f8fafc}
+.day-headers{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:0.7rem;color:#64748b;margin-bottom:4px;font-weight:600}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:7px;font-size:0.78rem;position:relative;min-height:38px;transition:transform 0.15s}
+.day:not(.empty):hover{transform:scale(1.15);z-index:5}
+.day.empty{background:transparent}
+.day.normal{background:#0f172a}
+.day.race{background:linear-gradient(135deg,#e11d48,#be123c);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 2px 8px #e11d4866}
+.day.trip{background:#f59e0b;color:#1e293b;font-weight:600}
+.day.festival{background:#8b5cf6;color:#fff;font-weight:600}
+.day .tooltip{display:none;position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:#1e293b;color:#f8fafc;padding:8px 14px;border-radius:8px;font-size:0.75rem;white-space:nowrap;z-index:20;pointer-events:none;border:1px solid #475569;box-shadow:0 4px 12px #00000066}
+.day:hover .tooltip{display:block}
+.day-num{font-size:0.82rem;line-height:1}
+.legend{display:flex;gap:24px;justify-content:center;margin:18px 0 8px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:0.85rem}
+.legend-swatch{width:16px;height:16px;border-radius:5px}
+.phase-bar{display:flex;gap:10px;justify-content:center;margin:10px 0 24px;flex-wrap:wrap}
+.phase-tag{padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;color:#0f172a}
+.summary{max-width:1500px;margin:32px auto 0;background:#1e293b;border-radius:14px;padding:24px;border:1px solid #334155}
+.summary h2{color:#f8fafc;margin-bottom:14px;font-size:1.2rem}
+.summary table{width:100%;border-collapse:collapse}
+.summary th{text-align:left;padding:10px 12px;color:#94a3b8;border-bottom:2px solid #334155;font-size:0.85rem}
+.summary td{padding:10px 12px;border-bottom:1px solid #1e293b;font-size:0.9rem}
+.summary tr:nth-child(even){background:#0f172a44}
+</style></head><body>
+<h1>&#127942; 2026 Race &amp; Training Calendar</h1>
+<p class="sub">May &mdash; November 2026 &middot; All key events at a glance</p>
+<div class="legend">
+<div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(135deg,#e11d48,#be123c)"></div>Race / Key Event</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#f59e0b"></div>Trip (No Training)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#8b5cf6"></div>Festival (No Training)</div>
+</div>
+<div class="phase-bar">
+<span class="phase-tag" style="background:#4ade80">HM Sharpening</span>
+<span class="phase-tag" style="background:#60a5fa">Bike Build + 5K</span>
+<span class="phase-tag" style="background:#fbbf24">Recovery & Transition</span>
+<span class="phase-tag" style="background:#f472b6">Backyard Ultra Prep</span>
+<span class="phase-tag" style="background:#c084fc">Recovery</span>
+<span class="phase-tag" style="background:#2dd4bf">70-Mile Ultra Build</span>
+</div>
+<div class="calendar-grid">
+<div class="month"><div class="month-name">May</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day normal"><span class="day-num">1</span></div>
+<div class="day normal"><span class="day-num">2</span></div>
+<div class="day normal"><span class="day-num">3</span></div>
+<div class="day normal"><span class="day-num">4</span></div>
+<div class="day normal"><span class="day-num">5</span></div>
+<div class="day normal"><span class="day-num">6</span></div>
+<div class="day normal"><span class="day-num">7</span></div>
+<div class="day normal"><span class="day-num">8</span></div>
+<div class="day normal"><span class="day-num">9</span></div>
+<div class="day normal"><span class="day-num">10</span></div>
+<div class="day normal"><span class="day-num">11</span></div>
+<div class="day normal"><span class="day-num">12</span></div>
+<div class="day normal"><span class="day-num">13</span></div>
+<div class="day normal"><span class="day-num">14</span></div>
+<div class="day normal"><span class="day-num">15</span></div>
+<div class="day normal"><span class="day-num">16</span></div>
+<div class="day normal"><span class="day-num">17</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">18</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">19</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">20</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">21</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">23</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">24</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">25</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">26</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">30</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">31</span></div>
+</div></div>
+<div class="month"><div class="month-name">June</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">3</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">4</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">8</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">9</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">10</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">11</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">12</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">13</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">14</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">15</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">16</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">17</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">18</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">19</span></div>
+<div class="day normal" style="background:#4ade8018;border-left:2px solid #4ade80"><span class="day-num">20</span></div>
+<div class="day race"><span class="day-num">21</span><span class="tooltip">Half Marathon PB &mdash; Target: 1:25 (6:29/mi)</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">23</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">24</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">25</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">26</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">30</span></div>
+</div></div>
+<div class="month"><div class="month-name">July</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">3</span></div>
+<div class="day race"><span class="day-num">4</span><span class="tooltip">5K PB Attempt &mdash; Target: sub-18:30</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">8</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">9</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">10</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">11</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">12</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">13</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">14</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">15</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">16</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">17</span></div>
+<div class="day normal" style="background:#60a5fa18;border-left:2px solid #60a5fa"><span class="day-num">18</span></div>
+<div class="day race"><span class="day-num">19</span><span class="tooltip">120-Mile Bike Ride &mdash; Completion (~8-9hrs)</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">20</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">21</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">23</span></div>
+<div class="day trip"><span class="day-num">24</span><span class="tooltip">Trip &mdash; No training Jul 24-27</span></div>
+<div class="day trip"><span class="day-num">25</span></div>
+<div class="day trip"><span class="day-num">26</span></div>
+<div class="day trip"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">30</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">31</span></div>
+</div></div>
+<div class="month"><div class="month-name">August</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#fbbf2418;border-left:2px solid #fbbf24"><span class="day-num">3</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">4</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">8</span></div>
+<div class="day festival"><span class="day-num">9</span><span class="tooltip">Music Festival &mdash; No training Aug 9-17</span></div>
+<div class="day festival"><span class="day-num">10</span></div>
+<div class="day festival"><span class="day-num">11</span></div>
+<div class="day festival"><span class="day-num">12</span></div>
+<div class="day festival"><span class="day-num">13</span></div>
+<div class="day festival"><span class="day-num">14</span></div>
+<div class="day festival"><span class="day-num">15</span></div>
+<div class="day festival"><span class="day-num">16</span></div>
+<div class="day festival"><span class="day-num">17</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">18</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">19</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">20</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">21</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">23</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">24</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">25</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">26</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">30</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">31</span></div>
+</div></div>
+<div class="month"><div class="month-name">September</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">3</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">4</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">8</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">9</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">10</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">11</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">12</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">13</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">14</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">15</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">16</span></div>
+<div class="day normal" style="background:#f472b618;border-left:2px solid #f472b6"><span class="day-num">17</span></div>
+<div class="day race"><span class="day-num">18</span><span class="tooltip">Backyard Ultra &mdash; Target: 100mi / 24hrs</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">19</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">20</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">21</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">23</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">24</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">25</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">26</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">30</span></div>
+</div></div>
+<div class="month"><div class="month-name">October</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">3</span></div>
+<div class="day normal" style="background:#c084fc18;border-left:2px solid #c084fc"><span class="day-num">4</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">8</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">9</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">10</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">11</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">12</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">13</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">14</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">15</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">16</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">17</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">18</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">19</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">20</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">21</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">22</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">23</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">24</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">25</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">26</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">27</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">28</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">29</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">30</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">31</span></div>
+</div></div>
+<div class="month"><div class="month-name">November</div>
+<div class="day-headers"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+<div class="days">
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day empty"></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">1</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">2</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">3</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">4</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">5</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">6</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">7</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">8</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">9</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">10</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">11</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">12</span></div>
+<div class="day normal" style="background:#2dd4bf18;border-left:2px solid #2dd4bf"><span class="day-num">13</span></div>
+<div class="day race"><span class="day-num">14</span><span class="tooltip">70-Mile Ultra &mdash; Flat road, London area</span></div>
+<div class="day normal"><span class="day-num">15</span></div>
+<div class="day normal"><span class="day-num">16</span></div>
+<div class="day normal"><span class="day-num">17</span></div>
+<div class="day normal"><span class="day-num">18</span></div>
+<div class="day normal"><span class="day-num">19</span></div>
+<div class="day normal"><span class="day-num">20</span></div>
+<div class="day normal"><span class="day-num">21</span></div>
+<div class="day normal"><span class="day-num">22</span></div>
+<div class="day normal"><span class="day-num">23</span></div>
+<div class="day normal"><span class="day-num">24</span></div>
+<div class="day normal"><span class="day-num">25</span></div>
+<div class="day normal"><span class="day-num">26</span></div>
+<div class="day normal"><span class="day-num">27</span></div>
+<div class="day normal"><span class="day-num">28</span></div>
+<div class="day normal"><span class="day-num">29</span></div>
+<div class="day normal"><span class="day-num">30</span></div>
+</div></div>
+</div>
+<div class="summary">
+<h2>&#128197; Key Events Summary</h2>
+<table>
+<tr><th>Date</th><th>Event</th><th>Target</th><th>Training Phase</th></tr>
+<tr><td>Sun 21 Jun</td><td>&#127939; Half Marathon PB</td><td>1:25:00 (6:29/mi)</td><td>HM Sharpening</td></tr>
+<tr><td>Sat 4 Jul</td><td>&#127939; 5K PB Attempt</td><td>Sub-18:30 (5:57/mi)</td><td>Bike Build + 5K</td></tr>
+<tr><td>Sun 19 Jul</td><td>&#128692; 120-Mile Bike Ride</td><td>Completion (~8-9hrs)</td><td>Bike Build + 5K</td></tr>
+<tr><td>Fri-Mon 24-27 Jul</td><td>&#9992;&#65039; Trip</td><td>No training</td><td>Recovery &amp; Transition</td></tr>
+<tr><td>Sun-Mon 9-17 Aug</td><td>&#127925; Music Festival</td><td>No training</td><td>Backyard Ultra Prep</td></tr>
+<tr><td>Fri 18 Sep</td><td>&#127939; Backyard Ultra</td><td>100 miles / 24 hours</td><td>Backyard Ultra Prep</td></tr>
+<tr><td>Sat 14 Nov</td><td>&#127939; 70-Mile Ultra</td><td>Steady completion</td><td>70-Mile Ultra Build</td></tr>
+</table>
+</div>
+</body></html>
